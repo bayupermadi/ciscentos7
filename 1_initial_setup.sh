@@ -88,7 +88,7 @@ if [ "$check1_3_2" == "0 5 * * * /usr/sbin/aide --check" ]
 then
 	result1_3_2="OK"
 else
-    echo "0 5 * * * /usr/sbin/aide --check" | sudo tee -a /var/spool/cron/root
+    echo "0 5 * * * /usr/sbin/aide --check" | tee --append /var/spool/cron/root
 	result1_3_2="ERR, Fix Automatically"
 fi
 export result1_3_2
