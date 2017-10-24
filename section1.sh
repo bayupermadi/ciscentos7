@@ -4,7 +4,7 @@ echo "==========================="
 echo ""
 
 
-echo "- Verify that gpgcheck is Globally Activated"
+echo "- 1.2.3 Ensure gpgcheck is globally activated (Scored)"
 check1=`grep gpgcheck /etc/yum.conf`
 
 if [ $check1 == "gpgcheck=1" ]
@@ -20,7 +20,7 @@ echo""
 echo "==========================="
 echo ""
 
-echo "- Install AIDE"
+echo "- Ensure AIDE is installed (Scored)"
 check2=`rpm -q aide`
 
 if [ "$check2" == "package aide is not installed" ]
@@ -44,7 +44,7 @@ if [ "$check3" == "0 5 * * * /usr/sbin/aide --check" ]
 then
         echo "-- okay"
 else
-        echo "0 5 * * * /usr/sbin/aide --check" | tee -a /var/spool/cron/root
+        echo "0 5 * * * /usr/sbin/aide --check" | sudo tee -a /var/spool/cron/root
 	echo "-- its okay now"
 fi
 
