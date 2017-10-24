@@ -13,7 +13,7 @@ echo "1.4.1, Ensure permissions on bootloader config are configured (Scored), $r
 echo "1.5.1, Ensure core dumps are restricted (Scored), $result1_5_1"
 echo "1.5.3, Ensure address space layout randomization (ASLR) is enabled (Scored), $result1_5_3"
 echo "1.6.1.1, Ensure SELinux is not disabled in bootloader configuration (Scored), $result1_6_1_1"
-echo "1.6.1.2, Ensure the SELinux state is enforcing (Scored). $result1_6_1_2"
+echo "1.6.1.2, Ensure the SELinux state is enforcing (Scored), $result1_6_1_2"
 echo "1.6.1.4, Ensure SETroubleshoot is not installed (Scored), $result1_6_1_4"
 echo "1.6.1.5, Ensure the MCS Translation Service (mcstrans) is not installed (Scored), $result1_6_1_5"
 echo "1.6.1.6, Ensure no unconfined daemons exist (Scored), $result1_6_1_6"
