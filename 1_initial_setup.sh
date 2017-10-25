@@ -1,5 +1,93 @@
 #/bin/bash
 
+# 1.1.1.1 Ensure mounting of cramfs filesystems is disabled (Scored)
+check1_1_1_1a=`modprobe -n -v cramfs | grep "install /bin/true"`
+check1_1_1_1b=`lsmod | grep cramfs"`
+if [ "$check1_1_1_1a" == "install /bin/true" ] && [ "$check1_1_1_1b" == "" ]
+then
+	result1_1_1_1="OK"
+else
+	result1_1_1_1="ERR, Fix Manually"
+fi
+export result1_1_1_1
+
+# 1.1.1.2 Ensure mounting of freevxfs filesystems is disabled (Scored)
+check1_1_1_2a=`modprobe -n -v freevxfs | grep "install /bin/true"`
+check1_1_1_2b=`lsmod | grep freevxfs`
+if [ "$check1_1_1_2a" == "install /bin/true" ] && [ "$check1_1_1_2b" == "" ]
+then
+	result1_1_1_2="OK"
+else
+	result1_1_1_2="ERR, Fix Manually"
+fi
+export result1_1_1_2
+
+# 1.1.1.3 Ensure mounting of jffs2 filesystems is disabled (Scored)
+check1_1_1_3a=`modprobe -n -v jffs2 | grep "install /bin/true"`
+check1_1_1_3b=`lsmod | grep jffs2`
+if [ "$check1_1_1_3a" == "install /bin/true" ] && [ "$check1_1_1_3b" == "" ]
+then
+	result1_1_1_3="OK"
+else
+	result1_1_1_3="ERR, Fix Manually"
+fi
+export result1_1_1_3
+
+# 1.1.1.4 Ensure mounting of hfs filesystems is disabled (Scored)
+check1_1_1_4a=`modprobe -n -v hfs | grep "install /bin/true"`
+check1_1_1_4b=`lsmod | grep hfs`
+if [ "$check1_1_1_4a" == "install /bin/true" ] && [ "$check1_1_1_4b" == "" ]
+then
+	result1_1_1_4="OK"
+else
+	result1_1_1_4="ERR, Fix Manually"
+fi
+export result1_1_1_4
+
+# 1.1.1.5 Ensure mounting of hfsplus filesystems is disabled (Scored)
+check1_1_1_5a=`modprobe -n -v hfs | grep "install /bin/true"`
+check1_1_1_5b=`lsmod | grep hfs`
+if [ "$check1_1_1_5a" == "install /bin/true" ] && [ "$check1_1_1_5b" == "" ]
+then
+	result1_1_1_5="OK"
+else
+	result1_1_1_5="ERR, Fix Manually"
+fi
+export result1_1_1_5
+
+# 1.1.1.6 Ensure mounting of squashfs filesystems is disabled (Scored)
+check1_1_1_6a=`modprobe -n -v squashfs | grep "install /bin/true"`
+check1_1_1_6b=`lsmod | grep squashfs`
+if [ "$check1_1_1_6a" == "install /bin/true" ] && [ "$check1_1_1_6b" == "" ]
+then
+	result1_1_1_6="OK"
+else
+	result1_1_1_6="ERR, Fix Manually"
+fi
+export result1_1_1_6
+
+# 1.1.1.7 Ensure mounting of udf filesystems is disabled (Scored)
+check1_1_1_7a=`modprobe -n -v udf | grep "install /bin/true"`
+check1_1_1_7b=`lsmod | grep udf`
+if [ "$check1_1_1_7a" == "install /bin/true" ] && [ "$check1_1_1_7b" == "" ]
+then
+	result1_1_1_7="OK"
+else
+	result1_1_1_7="ERR, Fix Manually"
+fi
+export result1_1_1_7
+
+# 1.1.1.8 Ensure mounting of FAT filesystems is disabled (Scored)
+check1_1_1_8a=`modprobe -n -v udf | grep "install /bin/true"`
+check1_1_1_8b=`lsmod | grep udf`
+if [ "$check1_1_1_8a" == "install /bin/true" ] && [ "$check1_1_1_8b" == "" ]
+then
+	result1_1_1_8="OK"
+else
+	result1_1_1_8="ERR, Fix Manually"
+fi
+export result1_1_1_8
+
 # 1.1.2 Ensure separate partition exists for /tmp (Scored)
 check1_1_2=`mount | grep /tmp`
 if [ "$check1_1_2" == "" ]
@@ -10,15 +98,85 @@ else
 fi
 export result1_1_2
 
+# 1.1.3 Ensure nodev option set on /tmp partition (Scored)
+check1_1_3=`mount | grep /tmp | grep nodev`
+if [ "$check1_1_3" == "" ]
+then
+	result1_1_3="ERR, Fix Manually"
+else
+	result1_1_3="OK"
+fi
+export result1_1_3
+
+# 1.1.4 Ensure nosuid option set on /tmp partition (Scored)
+check1_1_4=`mount | grep /tmp | grep nosuid`
+if [ "$check1_1_4" == "" ]
+then
+	result1_1_4="ERR, Fix Manually"
+else
+	result1_1_4="OK"
+fi
+export result1_1_4
+
 # 1.1.5 Ensure noexec option set on /tmp partition (Scored)
 check1_1_5=`mount | grep /tmp | grep noexec`
 if [ "$check1_1_5" == "" ]
 then
     result1_1_5="ERR, Fix Manually"
 else
-    result1_1_5="-- OK"
+    result1_1_5="OK"
 fi
 export result1_1_5
+
+# 1.1.6 Ensure separate partition exists for /var (Scored)
+check1_1_6=`mount | grep /var`
+if [ "$check1_1_6" == "" ]
+then
+    result1_1_6="ERR, Fix Manually"
+else
+    result1_1_6="OK"
+fi
+export result1_1_6
+
+# 1.1.7 Ensure separate partition exists for /var/tmp (Scored)
+check1_1_7=`mount | grep /var/tmp`
+if [ "$check1_1_7" == "" ]
+then
+    result1_1_7="ERR, Fix Manually"
+else
+    result1_1_7="OK"
+fi
+export result1_1_7
+
+# 1.1.8 Ensure nodev option set on /var/tmp partition (Scored)
+check1_1_8=`mount | grep /var/tmp | grep nodev`
+if [ "$check1_1_8" == "" ]
+then
+    result1_1_8="ERR, Fix Manually"
+else
+    result1_1_8="OK"
+fi
+export result1_1_8
+
+# 1.1.9 Ensure nosuid option set on /var/tmp partition (Scored)
+check1_1_9=`mount | grep /var/tmp | grep nosuid`
+if [ "$check1_1_9" == "" ]
+then
+    result1_1_9="ERR, Fix Manually"
+else
+    result1_1_9="OK"
+fi
+export result1_1_9
+
+# 1.1.10 Ensure noexec option set on /var/tmp partition (Scored)
+check1_1_10=`mount | grep /var/tmp | grep noexec`
+if [ "$check1_1_10" == "" ]
+then
+    result1_1_10="ERR, Fix Manually"
+else
+    result1_1_10="OK"
+fi
+export result1_1_10
 
 # 1.1.11 Ensure separate partition exists for /var/log (Scored)
 check1_1_11=`mount | grep /var/log`
