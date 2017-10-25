@@ -218,6 +218,78 @@ else
 fi
 export result1_1_14
 
+# 1.1.15 Ensure nodev option set on /dev/shm partition (Scored)
+check1_1_15=`mount | grep /dev/shm | grep nodev`
+if [ "$check1_1_15" == "" ]
+then
+	result1_1_15="ERR, Fix Manually"
+else
+	result1_1_15="OK"
+fi
+export result1_1_15
+
+# 1.1.16 Ensure nosuid option set on /dev/shm partition (Scored)
+check1_1_16=`mount | grep /dev/shm | grep nosuid`
+if [ "$check1_1_16" == "" ]
+then
+	result1_1_16="ERR, Fix Manually"
+else
+	result1_1_16="OK"
+fi
+export result1_1_16
+
+# 1.1.17 Ensure noexec option set on /dev/shm partition (Scored)
+check1_1_17=`mount | grep /dev/shm | grep noexec`
+if [ "$check1_1_17" == "" ]
+then
+	result1_1_17="ERR, Fix Manually"
+else
+	result1_1_17="OK"
+fi
+export result1_1_17
+
+# 1.1.18 Ensure nodev option set on removable media partitions (Not Scored)
+check1_1_18a=`mount | grep media | wc -l`
+check1_1_18b=`mount | grep media | grep nodev | wc -l`
+if [ "$check1_1_18a" == "0" ] || [ "$check1_1_18a" == "$check1_1_18b" ]
+then
+	result1_1_18="OK"
+elif [ "$check1_1_18a" -ne "0" ] && [ "$check1_1_18a" -ne "$check1_1_18b" ]
+then
+	result1_1_18="ERR, Fix Manually"
+else
+	result1_1_18="ERR, Fix Manually"
+fi
+export result1_1_18
+
+# 1.1.19 Ensure nosuid option set on removable media partitions (Not Scored)
+check1_1_19a=`mount | grep media | wc -l`
+check1_1_19b=`mount | grep media | grep nosuid | wc -l`
+if [ "$check1_1_19a" == "0" ] || [ "$check1_1_19a" == "$check1_1_19b" ]
+then
+	result1_1_19="OK"
+elif [ "$check1_1_19a" -ne "0" ] && [ "$check1_1_19a" -ne "$check1_1_19b" ]
+then
+	result1_1_19="ERR, Fix Manually"
+else
+	result1_1_19="ERR, Fix Manually"
+fi
+export result1_1_19
+
+# 1.1.20 Ensure noexec option set on removable media partitions (Not Scored)
+check1_1_20a=`mount | grep media | wc -l`
+check1_1_20b=`mount | grep media | grep noexec | wc -l`
+if [ "$check1_1_20a" == "0" ] || [ "$check1_1_20a" == "$check1_1_20b" ]
+then
+	result1_1_20="OK"
+elif [ "$check1_1_20a" -ne "0" ] && [ "$check1_1_20a" -ne "$check1_1_20b" ]
+then
+	result1_1_20="ERR, Fix Manually"
+else
+	result1_1_20="ERR, Fix Manually"
+fi
+export result1_1_20
+
 # 1.2.3 Ensure gpgcheck is globally activated (Scored)
 check1_2_3=`grep gpgcheck /etc/yum.conf`
 if [ $check1_2_3 == "gpgcheck=1" ]
