@@ -2,7 +2,7 @@
 
 # 1.1.1.1 Ensure mounting of cramfs filesystems is disabled (Scored)
 check1_1_1_1a=`modprobe -n -v cramfs | grep "install /bin/true"`
-check1_1_1_1b=`lsmod | grep cramfs"`
+check1_1_1_1b=`lsmod | grep cramfs`
 if [ "$check1_1_1_1a" == "install /bin/true" ] && [ "$check1_1_1_1b" == "" ]
 then
 	result1_1_1_1="OK"
