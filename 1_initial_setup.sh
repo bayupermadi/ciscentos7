@@ -290,6 +290,26 @@ else
 fi
 export result1_1_20
 
+# 1.1.21 Ensure sticky bit is set on all world-writable directories (Scored)
+check1_1_21=`df --local -P | awk '{ if ( NR != 1 ) print $6 }' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null`
+if [ "$check1_1_21" == "" ] 
+then
+	check1_1_21="OK"
+else
+	check1_1_21="ERR, Fix Manually"
+fi
+export check1_1_21
+
+# 1.1.22 Disable Automounting (Scored)
+check1_1_22=`sudo systemctl is-enabled autofs`
+if [ "$check1_1_22" == "disabled" ] || [ "$check1_1_22" == "Failed to get unit file state for autofs.service: No such file or directory" ]
+then
+	check1_1_22="OK"
+else
+	check1_1_22="ERR, Fix Manually"
+fi
+export check1_1_22
+
 # 1.2.3 Ensure gpgcheck is globally activated (Scored)
 check1_2_3=`grep gpgcheck /etc/yum.conf`
 if [ $check1_2_3 == "gpgcheck=1" ]

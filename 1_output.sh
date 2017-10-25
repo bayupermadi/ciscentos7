@@ -27,6 +27,8 @@ echo "1.1.17, Ensure noexec option set on /dev/shm partition (Scored), $result1_
 echo "1.1.18, Ensure nodev option set on removable media partitions (Not Scored), $result1_1_18"
 echo "1.1.19, Ensure nosuid option set on removable media partitions (Not Scored), $result1_1_19"
 echo "1.1.20, Ensure noexec option set on removable media partitions (Not Scored), $result1_1_20"
+echo "1.1.21, Ensure sticky bit is set on all world-writable directories (Scored), $result1_1_21"
+echo "1.1.22, Disable Automounting (Scored), $result1_1_22"
 echo "1.2.3, Ensure gpgcheck is globally activated (Scored), $result1_2_3" 
 echo "1.3.1, Ensure AIDE is installed (Scored), $result1_3_1"
 echo "1.3.2, Ensure filesystem integrity is regularly checked (Scored), $result1_3_2"
