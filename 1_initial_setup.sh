@@ -575,14 +575,14 @@ fi
 export result1_7_1_5
 
 # 1.7.1.6 Ensure permissions on /etc/issue.net are configured (Not Scored)
-check1_7_1_5=`stat /etc/issue.net | grep root | grep 644`
-if [ "$check1_7_1_5" != "" ]
+check1_7_1_6=`stat /etc/issue.net | grep root | grep 644`
+if [ "$check1_7_1_6" != "" ]
 then
-    result1_7_1_5="OK"
+    result1_7_1_6="OK"
 else
-	result1_7_1_5="ERR, Fix Manually"
+	result1_7_1_6="ERR, Fix Manually"
 fi
-export result1_7_1_5
+export result1_7_1_6
 
 # 1.7.2 Ensure GDM login banner is configured (Scored)
 check1_7_2=`rpm -q gdm`
