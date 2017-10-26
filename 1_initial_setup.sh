@@ -586,7 +586,7 @@ export result1_7_1_5
 
 # 1.7.2 Ensure GDM login banner is configured (Scored)
 check1_7_2=`rpm -q gdm`
-if [  "$check1_7_2" != "" ]; then
+if [  "$check1_7_2" != "package gdm is not installed" ]; then
     check1_7_2a=`grep user-db:user /etc/dconf/profile/gdm`
 	check1_7_2b=`grep system-db:gdm /etc/dconf/profile/gdm`
 	check1_7_2c=`grep file-db:/usr/share/gdm/greeter-dconf-default /etc/dconf/profile/gdm`
