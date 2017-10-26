@@ -55,3 +55,4 @@ echo "1.7.1.4, Ensure permissions on /etc/motd are configured (Not Scored), $res
 echo "1.7.1.5, Ensure permissions on /etc/issue are configured (Scored), $result1_7_1_5"
 echo "1.7.1.6, Ensure permissions on /etc/issue.net are configured (Not Scored), $result1_7_1_6"
 echo "1.7.2, Ensure GDM login banner is configured (Scored), $result1_7_2"
+echo "1.8, Ensure updates, patches, and additional security software are installed (Not Scored), --, Please check manual"
