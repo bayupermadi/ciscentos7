@@ -6,7 +6,7 @@ echo "1.1.1.3, Ensure mounting of jffs2 filesystems is disabled (Scored), $resul
 echo "1.1.1.4, Ensure mounting of hfs filesystems is disabled (Scored), $result1_1_1_4"
 echo "1.1.1.5, Ensure mounting of hfsplus filesystems is disabled (Scored), $result1_1_1_5"
 echo "1.1.1.6, Ensure mounting of squashfs filesystems is disabled (Scored), $result1_1_1_6"
-echo "1.1.1.7 Ensure mounting of udf filesystems is disabled (Scored), $result1_1_1_7"
+echo "1.1.1.7, Ensure mounting of udf filesystems is disabled (Scored), $result1_1_1_7"
 echo "1.1.1.8, Ensure mounting of FAT filesystems is disabled (Scored), $result1_1_1_8"
 echo "1.1.2, Ensure separate partition exists for /tmp (Scored), $result1_1_2"
 echo "1.1.3, Ensure nodev option set on /tmp partition (Scored), $result1_1_3"
