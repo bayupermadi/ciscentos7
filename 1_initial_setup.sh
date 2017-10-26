@@ -312,7 +312,7 @@ export result1_1_22
 
 # 1.2.1 Ensure package manager repositories are configured (Not Scored)
 check1_2_1=`yum repolist | grep repolist | awk '{print $2}'`
-if [ "$check1_2_1" -ne "0" ] 
+if [ "$check1_2_1" != "0" ] 
 then
 	result1_2_1="OK"
 else
@@ -471,8 +471,8 @@ export result1_6_1_2
 
 # 1.6.1.3 Ensure SELinux policy is configured (Scored)
 check1_6_1_3a=`grep SELINUXTYPE=targeted /etc/selinux/config`
-check1_6_1_3b=`sestatus | grep "Loaded policy name" | grep targeted``
-if [ "$check1_6_1_3a" -ne "" ] || [ "$check1_6_1_3b" -ne "" ]
+check1_6_1_3b=`sestatus | grep "Loaded policy name" | grep targeted`
+if [ "$check1_6_1_3a" != "" ] || [ "$check1_6_1_3b" -ne "" ]
 then
     result1_6_1_3="OK"
 else
@@ -516,7 +516,6 @@ export result1_6_1_6
 
 # 1.6.2 Ensure SELinux is installed (Scored)
 check1_6_2=`rpm -q libselinux`
-
 if [ "$check1_6_2" == "" ]
 then
     result1_6_2="ERR, Fix Manually"
