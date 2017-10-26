@@ -471,7 +471,7 @@ export result1_6_1_2
 
 # 1.6.1.3 Ensure SELinux policy is configured (Scored)
 check1_6_1_3a=`grep SELINUXTYPE=targeted /etc/selinux/config`
-check1_6_1_3b='sestatus | grep "Loaded policy name" | grep targeted'
+check1_6_1_3b=`sestatus | grep "Loaded policy name" | grep targeted``
 if [ "$check1_6_1_3a" -ne "" ] || [ "$check1_6_1_3b" -ne "" ]
 then
     result1_6_1_3="OK"
