@@ -524,4 +524,89 @@ else
 fi
 export result1_6_2
 
+# 1.7.1.1 Ensure message of the day is configured properly (Scored)
+check1_7_1_1=`egrep '(\\v|\\r|\\m|\\s)' /etc/motd`
+if [ "$check1_7_1_1" == "" ]
+then
+    result1_7_1_1="OK"
+else
+	result1_7_1_1="ERR, Fix Manually"
+fi
+export result1_7_1_1
+
+# 1.7.1.2 Ensure local login warning banner is configured properly (Not Scored)
+check1_7_1_2=`egrep '(\\v|\\r|\\m|\\s)' /etc/issue`
+if [ "$check1_7_1_2" == "" ]
+then
+    result1_7_1_2="OK"
+else
+	result1_7_1_2="ERR, Fix Manually"
+fi
+export result1_7_1_2
+
+# 1.7.1.3 Ensure remote login warning banner is configured properly (Not Scored)
+check1_7_1_3=`egrep '(\\v|\\r|\\m|\\s)' /etc/issue.net`
+if [ "$check1_7_1_3" == "" ]
+then
+    result1_7_1_3="OK"
+else
+	result1_7_1_3="ERR, Fix Manually"
+fi
+export result1_7_1_3
+
+# 1.7.1.4 Ensure permissions on /etc/motd are configured (Not Scored)
+check1_7_1_4=`stat /etc/motd | grep root | grep 644`
+if [ "$check1_7_1_4" != "" ]
+then
+    result1_7_1_4="OK"
+else
+	result1_7_1_4="ERR, Fix Manually"
+fi
+export result1_7_1_4
+
+# 1.7.1.5 Ensure permissions on /etc/issue are configured (Scored)
+check1_7_1_5=`stat /etc/issue | grep root | grep 644`
+if [ "$check1_7_1_5" != "" ]
+then
+    result1_7_1_5="OK"
+else
+	result1_7_1_5="ERR, Fix Manually"
+fi
+export result1_7_1_5
+
+# 1.7.1.6 Ensure permissions on /etc/issue.net are configured (Not Scored)
+check1_7_1_5=`stat /etc/issue.net | grep root | grep 644`
+if [ "$check1_7_1_5" != "" ]
+then
+    result1_7_1_5="OK"
+else
+	result1_7_1_5="ERR, Fix Manually"
+fi
+export result1_7_1_5
+
+# 1.7.2 Ensure GDM login banner is configured (Scored)
+check1_7_2=`rpm -q gdm`
+if [  "$check1_7_2" != "" ]; then
+    check1_7_2a=`grep user-db:user /etc/dconf/profile/gdm`
+	check1_7_2b=`grep system-db:gdm /etc/dconf/profile/gdm`
+	check1_7_2c=`grep file-db:/usr/share/gdm/greeter-dconf-default /etc/dconf/profile/gdm`
+	if [ "$check1_7_2a" != "" ] && [ "$check1_7_2b" != "" ] && [ "$check1_7_2c" != "" ]
+	then	
+		check1_7_2d=`grep [org/gnome/login-screen] /etc/dconf/db/gdm.d/01-banner-message`
+		check1_7_2e=`grep banner-message-enable=true /etc/dconf/db/gdm.d/01-banner-message`
+		check1_7_2f=`grep banner-message-text= /etc/dconf/db/gdm.d/01-banner-message`
+		if [ "$check1_7_2a" != "" ] && [ "$check1_7_2b" != "" ] && [ "$check1_7_2c" != "" ]
+		then
+			result1_7_2="OK"
+		else
+			result1_7_2="ERR, Fix Manually"
+		fi
+	else
+		result1_7_2="ERR, Fix Manually"
+	fi
+else
+	result1_7_2="OK"
+fi
+export result1_7_2
+
 bash 1_output.sh
