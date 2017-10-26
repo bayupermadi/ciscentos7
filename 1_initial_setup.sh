@@ -294,21 +294,41 @@ export result1_1_20
 check1_1_21=`df --local -P | awk '{ if ( NR != 1 ) print $6 }' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null`
 if [ "$check1_1_21" == "" ] 
 then
-	check1_1_21="OK"
+	result1_1_21="OK"
 else
-	check1_1_21="ERR, Fix Manually"
+	result1_1_21="ERR, Fix Manually"
 fi
-export check1_1_21
+export result1_1_21
 
 # 1.1.22 Disable Automounting (Scored)
 check1_1_22=`sudo systemctl is-enabled autofs`
 if [ "$check1_1_22" == "disabled" ] || [ "$check1_1_22" == "Failed to get unit file state for autofs.service: No such file or directory" ]
 then
-	check1_1_22="OK"
+	result1_1_22="OK"
 else
-	check1_1_22="ERR, Fix Manually"
+	result1_1_22="ERR, Fix Manually"
 fi
-export check1_1_22
+export result1_1_22
+
+# 1.2.1 Ensure package manager repositories are configured (Not Scored)
+check1_2_1=`yum repolist | grep repolist | awk '{print $2}'`
+if [ "$check1_2_1" -ne "0" ] 
+then
+	result1_2_1="OK"
+else
+	result1_2_1="ERR, Fix Manually"
+fi
+export result1_2_1
+
+# 1.2.2 Ensure GPG keys are configured (Not Scored)
+check1_2_2=`rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n' | wc -l`
+if [ "$check1_2_2" -ne "0" ] 
+then
+	result1_2_2="OK"
+else
+	result1_2_2="ERR, Fix Manually"
+fi
+export result1_2_2
 
 # 1.2.3 Ensure gpgcheck is globally activated (Scored)
 check1_2_3=`grep gpgcheck /etc/yum.conf`
@@ -345,7 +365,6 @@ export result1_3_2
 
 # 1.4.1 Ensure permissions on bootloader config are configured (Scored)
 check1_4_1=`stat /boot/grub2/grub.cfg | grep root | grep root | grep 600`
-
 if [ "$check1_4_1" == "" ]
 then
 	chown root:root /boot/grub2/grub.cfg
@@ -355,6 +374,29 @@ else
     result1_4_1="OK"
 fi
 export result1_4_1
+
+# 1.4.2 Ensure bootloader password is set (Scored)
+check1_4_2a=`grep "^set superusers" /boot/grub2/grub.cfg`
+check1_4_2b=`grep "^password" /boot/grub2/grub.cfg`
+if [ "$check1_4_2a" == "" ] || [ "$check1_4_2b" == "" ]
+then
+    result1_4_2="ERR, Fix Manually"
+else
+    result1_4_2="OK"
+fi
+export result1_4_2
+
+# 1.4.3 Ensure authentication required for single user mode (Not Scored)
+check1_4_3a=`grep /sbin/sulogin /usr/lib/systemd/system/rescue.service`
+check1_4_3b=`grep /sbin/sulogin /usr/lib/systemd/system/emergency.service`
+output1_4_3='ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
+if [ "$check1_4_3a" == "$output1_4_3" ] || [ "$check1_4_3b" == "$output1_4_3" ]
+then
+    result1_4_3="OK"
+else
+    result1_4_3="ERR, Fix Manually"
+fi
+export result1_4_3
 
 # 1.5.1 Ensure core dumps are restricted (Scored)
 check1_5_1=`grep "hard core" /etc/security/limits.conf /etc/security/limits.d/*`
@@ -368,6 +410,17 @@ else
 fi
 export result1_5_1
 
+# 1.5.2 Ensure XD/NX support is enabled (Not Scored)
+check1_5_2=`dmesg | grep "NX (Execute Disable) protection: active"`
+
+if [ "$check1_5_2" == "" ]
+then
+    result1_5_2="ERR, Fix Manually"
+else
+    result1_5_2="OK"
+fi
+export result1_5_2
+
 # 1.5.3 Ensure address space layout randomization (ASLR) is enabled (Scored)
 check1_5_3=`/sbin/sysctl kernel.randomize_va_space`
 if [ "$check1_5_3" == "" ]
@@ -379,6 +432,17 @@ else
     result1_5_3="OK"
 fi
 export result1_5_3
+
+# 1.5.4 Ensure prelink is disabled (Scored)
+check1_5_4=`rpm -q prelink`
+if [ "$check1_5_4" == "package prelink is not installed" ]
+then
+    result1_5_4="OK"
+else
+    result1_5_4="ERR, Fix Automatically"
+fi
+export result1_5_4
+
 
 # 1.6.1.1 Ensure SELinux is not disabled in bootloader configuration (Scored)
 check1_6_1_1a=`grep selinux=0 /boot/grub2/grub.cfg`
@@ -395,7 +459,6 @@ export result1_6_1_1
 
 # 1.6.1.2 Ensure the SELinux state is enforcing (Scored)
 check1_6_1_2=`grep SELINUX=enforcing /etc/selinux/config`
-
 if [ "$check1_6_1_2" == "SELINUX=enforcing" ]
 then
     result1_6_1_2="OK"
@@ -405,6 +468,17 @@ else
 	result1_6_1_2="ERR, Fix Automatically"
 fi
 export result1_6_1_2
+
+# 1.6.1.3 Ensure SELinux policy is configured (Scored)
+check1_6_1_3a=`grep SELINUXTYPE=targeted /etc/selinux/config`
+check1_6_1_3b='sestatus | grep "Loaded policy name" | grep targeted'
+if [ "$check1_6_1_3a" -ne "" ] || [ "$check1_6_1_3b" -ne "" ]
+then
+    result1_6_1_3="OK"
+else
+	result1_6_1_3="ERR, Fix Manually"
+fi
+export result1_6_1_3
 
 # 1.6.1.4 Ensure SETroubleshoot is not installed (Scored)
 check1_6_1_4=`rpm -q setroubleshoot`
@@ -439,5 +513,16 @@ else
 	result1_6_1_6="ERR, Fix Manually"
 fi
 export result1_6_1_6
+
+# 1.6.2 Ensure SELinux is installed (Scored)
+check1_6_2=`rpm -q libselinux`
+
+if [ "$check1_6_2" == "" ]
+then
+    result1_6_2="ERR, Fix Manually"
+else
+	result1_6_2="OK"
+fi
+export result1_6_2
 
 bash 1_output.sh
