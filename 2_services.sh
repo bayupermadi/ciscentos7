@@ -1,7 +1,6 @@
 # 2.1.1 Ensure chargen services are not enabled (Scored)
 check2_1_1=`systemctl list-unit-files | grep -e 'chargen-dgram\|chargen-stream' | grep enabled`
-if [ "$check2_1_1" != "" ]
-then
+if [ "$check2_1_1" != "" ] 
     result2_1_1="OK"
 else
 	result2_1_1="ERR, Fix Manually"
@@ -10,7 +9,7 @@ export result2_1_1
 
 # 2.1.2 Ensure daytime services are not enabled (Scored)
 check2_1_2=`systemctl list-unit-files | grep -e 'daytime-dgram\|daytime-stream' | grep enabled`
-if [ "$check2_1_2" != "" ]
+if [ "$check2_1_2" != "" ] 
 then
     result2_1_2="OK"
 else
@@ -20,7 +19,7 @@ export result2_1_2
 
 # 2.1.2 Ensure discard services are not enabled (Scored)
 check2_1_3=`systemctl list-unit-files | grep -e 'discard-dgram\|discard-stream' | grep enabled`
-if [ "$check2_1_3" != "" ]
+if [ "$check2_1_3" != "" ] 
 then
     result2_1_3="OK"
 else
@@ -30,7 +29,7 @@ export result2_1_3
 
 # 2.1.4 Ensure echo services are not enabled (Scored)
 check2_1_4=`systemctl list-unit-files | grep -e 'echo-dgram\|echo-stream' | grep enabled`
-if [ "$check2_1_4" != "" ]
+if [ "$check2_1_4" != "" ] 
 then
     result2_1_4="OK"
 else
@@ -50,7 +49,7 @@ export result2_1_5
 
 # 2.1.6 Ensure tftp server is not enabled (Scored)
 check2_1_6=`systemctl list-unit-files | grep -e 'tftp' | grep enabled`
-if [ "$check2_1_6" != "" ]
+if [ "$check2_1_6" != "" ] || [ "$check2_1_6" != "Unit tftp.service could not be found." ]
 then
     result2_1_6="OK"
 else
@@ -60,7 +59,7 @@ export result2_1_6
 
 # 2.1.7 Ensure xinetd is not enabled (Scored)
 check2_1_7=`systemctl is-enabled xinetd | grep enabled`
-if [ "$check2_1_7" != "" ]
+if [ "$check2_1_7" != "" ] || [ "$check2_1_7" != "Unit xinetd.service could not be found." ] 
 then
     result2_1_7="OK"
 else
