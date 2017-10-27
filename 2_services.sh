@@ -68,4 +68,15 @@ else
 fi
 export result2_1_7
 
+# 2.2.1.1 Ensure time synchronization is in use (Not Scored)
+check2_2_1_1a=`rpm -q chrony | grep package`
+check2_2_1_1b=`rpm -q ntp | grep package`
+if [ "$check2_2_1_1a" == "" ] || [ "$check2_2_1_1b" == "" ] 
+then
+    result2_2_1_1="OK"
+else
+	result2_2_1_1="ERR, Fix Manually"
+fi
+export result2_2_1_1
+
 bash 2_output.sh
