@@ -1,6 +1,7 @@
 # 2.1.1 Ensure chargen services are not enabled (Scored)
 check2_1_1=`systemctl list-unit-files | grep -e 'chargen-dgram\|chargen-stream' | grep enabled`
 if [ "$check2_1_1" != "" ] 
+then
     result2_1_1="OK"
 else
 	result2_1_1="ERR, Fix Manually"
