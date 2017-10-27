@@ -1,6 +1,6 @@
 # 2.1.1 Ensure chargen services are not enabled (Scored)
 check2_1_1=`systemctl list-unit-files | grep -e 'chargen-dgram\|chargen-stream' | grep enabled`
-if [ "$check2_1_1" != "" ] 
+if [ "$check2_1_1" == "" ] 
 then
     result2_1_1="OK"
 else
@@ -10,7 +10,7 @@ export result2_1_1
 
 # 2.1.2 Ensure daytime services are not enabled (Scored)
 check2_1_2=`systemctl list-unit-files | grep -e 'daytime-dgram\|daytime-stream' | grep enabled`
-if [ "$check2_1_2" != "" ] 
+if [ "$check2_1_2" == "" ] 
 then
     result2_1_2="OK"
 else
@@ -20,7 +20,7 @@ export result2_1_2
 
 # 2.1.2 Ensure discard services are not enabled (Scored)
 check2_1_3=`systemctl list-unit-files | grep -e 'discard-dgram\|discard-stream' | grep enabled`
-if [ "$check2_1_3" != "" ] 
+if [ "$check2_1_3" == "" ] 
 then
     result2_1_3="OK"
 else
@@ -30,7 +30,7 @@ export result2_1_3
 
 # 2.1.4 Ensure echo services are not enabled (Scored)
 check2_1_4=`systemctl list-unit-files | grep -e 'echo-dgram\|echo-stream' | grep enabled`
-if [ "$check2_1_4" != "" ] 
+if [ "$check2_1_4" == "" ] 
 then
     result2_1_4="OK"
 else
@@ -40,7 +40,7 @@ export result2_1_4
 
 # 2.1.5 Ensure time services are not enabled (Scored)
 check2_1_5=`systemctl list-unit-files | grep -e 'time-dgram\|time-stream' | grep enabled`
-if [ "$check2_1_5" != "" ]
+if [ "$check2_1_5" == "" ]
 then
     result2_1_5="OK"
 else
