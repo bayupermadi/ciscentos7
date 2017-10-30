@@ -179,6 +179,16 @@ else
 fi
 export result3_4_4
 
+# 3.4.5 Ensure permissions on /etc/hosts.deny are 644 (Scored)
+check3_4_5=`stat /etc/hosts.deny | grep 644 | grep root`
+if [ "$check3_4_5" != "" ] 
+then
+    result3_4_5="OK"
+else
+	result3_4_5="ERR, Fix Manually"
+fi
+export result3_4_5
+
 # 3.5.1 Ensure DCCP is disabled (Not Scored)
 check3_5_1a=`modprobe -n -v dccp | grep install`
 check3_5_1b=`lsmod | grep dccp`
@@ -232,6 +242,5 @@ else
 	result3_7="ERR, Fix Manually"
 fi
 export result3_7
-
 
 bash 3_output.sh
