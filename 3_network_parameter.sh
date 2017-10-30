@@ -106,4 +106,132 @@ else
 fi
 export result3_2_8
 
+# 3.3.1 Ensure IPv6 router advertisements are not accepted (Scored)
+check3_3_1a=`sysctl net.ipv6.conf.all.accept_ra`
+check3_3_1b=`sysctl net.ipv6.conf.default.accept_ra`
+if [ "$check3_3_1a" == "net.ipv6.conf.all.accept_ra = 0" ] && [ "$check3_3_1b" == "net.ipv6.conf.default.accept_ra = 0" ]
+then
+    result3_3_1="OK"
+else
+	result3_3_1="ERR, Fix Manually"
+fi
+export result3_3_1
+
+# 3.3.2 Ensure IPv6 redirects are not accepted (Scored)
+check3_3_2a=`sysctl net.ipv6.conf.all.accept_redirects`
+check3_3_2b=`sysctl net.ipv6.conf.default.accept_redirects`
+if [ "$check3_3_2a" == "net.ipv6.conf.all.accept_redirect = 0" ] && [ "$check3_3_2b" == "net.ipv6.conf.default.accept_redirect = 0" ]
+then
+    result3_3_2="OK"
+else
+	result3_3_2="ERR, Fix Manually"
+fi
+export result3_3_2
+
+# 3.3.3 Ensure IPv6 is disabled (Not Scored)
+check3_3_3=`modprobe -c | grep ipv6 | grep disable=1 | grep "#"`
+if [ "$check3_3_3" != "" ] 
+then
+    result3_3_3="OK"
+else
+	result3_3_3="ERR, Fix Manually"
+fi
+export result3_3_3
+
+# 3.4.1 Ensure TCP Wrappers is installed (Scored)
+check3_4_1a=`rpm -q tcp_wrappers | grep package`
+check3_4_1b=`rpm -q tcp_wrappers-libs | grep package `
+if [ "$check3_4_1a" == "" ] && [ "$check3_4_1b" == "" ] 
+then
+    result3_4_1="OK"
+else
+	result3_4_1="ERR, Fix Manually"
+fi
+export result3_4_1
+
+# 3.4.2 Ensure /etc/hosts.allow is configured (Scored)
+check3_4_2=`cat /etc/hosts.allow | grep "ALL:" | "#"`
+if [ "$check3_4_2" != "" ] 
+then
+    result3_4_2="OK"
+else
+	result3_4_2="ERR, Fix Manually"
+fi
+export result3_4_2
+
+# 3.4.3 Ensure /etc/hosts.deny is configured (Scored)
+check3_4_3=`cat /etc/hosts.deny | grep "ALL: ALL" | "#"`
+if [ "$check3_4_3" != "" ] 
+then
+    result3_4_3="OK"
+else
+	result3_4_3="ERR, Fix Manually"
+fi
+export result3_4_3
+
+# 3.4.4 Ensure permissions on /etc/hosts.allow are configured (Scored)
+check3_4_4=`stat /etc/hosts.allow | grep 644 | grep root`
+if [ "$check3_4_4" != "" ] 
+then
+    result3_4_4="OK"
+else
+	result3_4_4="ERR, Fix Manually"
+fi
+export result3_4_4
+
+# 3.5.1 Ensure DCCP is disabled (Not Scored)
+check3_5_1a=`modprobe -n -v dccp | grep install`
+check3_5_1b=`lsmod | grep dccp`
+if [ "$check3_5_1a" != "" ] && [ "$check3_5_1b" == "" ] 
+then
+    result3_5_1="OK"
+else
+	result3_5_1="ERR, Fix Manually"
+fi
+export result3_5_1
+
+# 3.5.2 Ensure SCTP is disabled (Not Scored)
+check3_5_2a=`modprobe -n -v sctp | grep install`
+check3_5_2b=`lsmod | grep sctp`
+if [ "$check3_5_2a" != "" ] && [ "$check3_5_2b" == "" ] 
+then
+    result3_5_2="OK"
+else
+	result3_5_2="ERR, Fix Manually"
+fi
+export result3_5_2
+
+# 3.5.3 Ensure RDS is disabled (Not Scored)
+check3_5_3a=`modprobe -n -v rds | grep install`
+check3_5_3b=`lsmod | grep rds`
+if [ "$check3_5_3a" != "" ] && [ "$check3_5_3b" == "" ] 
+then
+    result3_5_3="OK"
+else
+	result3_5_3="ERR, Fix Manually"
+fi
+export result3_5_3
+
+# 3.5.4 Ensure TIPC is disabled (Not Scored)
+check3_5_4a=`modprobe -n -v tipc | grep install`
+check3_5_4b=`lsmod | grep tipc`
+if [ "$check3_5_4a" != "" ] && [ "$check3_5_4b" == "" ] 
+then
+    result3_5_4="OK"
+else
+	result3_5_4="ERR, Fix Manually"
+fi
+export result3_5_4
+
+# 3.7 Ensure wireless interfaces are disabled (Not Scored)
+check3_7=`iw dev`
+if [ "$check3_7" != "-bash: iw: command not found"  
+then
+    result3_7="OK"
+else
+	result3_7="ERR, Fix Manually"
+fi
+export result3_7
+
+
 bash 3_output.sh
