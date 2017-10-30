@@ -234,8 +234,8 @@ fi
 export result3_5_4
 
 # 3.7 Ensure wireless interfaces are disabled (Not Scored)
-check3_7=`iw dev`
-if [ "$check3_7" == "-bash: iw: command not found"  ]
+check3_7=`ifconfig | grep wl`
+if [ "$check3_7" == ""  ]
 then
     result3_7="OK"
 else
