@@ -306,4 +306,54 @@ else
 fi
 export result2_2_21
 
+# 2.3.1 Ensure NIS Client is not installed (Scored)
+check2_3_1=`rpm -q ypbind | grep package`
+if [ "$check2_3_1" == "" ]
+then
+    result2_3_1="OK"
+else
+	result2_3_1="ERR, Fix Manually"
+fi
+export result2_3_1
+
+# 2.3.2 Ensure rsh client is not installed (Scored)
+check2_3_2=`rpm -q rsh | grep package`
+if [ "$check2_3_2" == "" ]
+then
+    result2_3_2="OK"
+else
+	result2_3_2="ERR, Fix Manually"
+fi
+export result2_3_2
+
+# 2.3.3 Ensure talk client is not installed (Scored)
+check2_3_3=`rpm -q talk | grep package`
+if [ "$check2_3_3" == "" ]
+then
+    result2_3_3="OK"
+else
+	result2_3_3="ERR, Fix Manually"
+fi
+export result2_3_3
+
+# 2.3.4 Ensure telnet client is not installed (Scored)
+check2_3_4=`rpm -q telnet | grep package`
+if [ "$check2_3_4" == "" ]
+then
+    result2_3_4="OK"
+else
+	result2_3_4="ERR, Fix Manually"
+fi
+export result2_3_4
+
+# 2.3.5 Ensure LDAP client is not installed (Scored)
+check2_3_5=`rpm -q openldap-clients | grep package`
+if [ "$check2_3_5" == "" ]
+then
+    result2_3_5="OK"
+else
+	result2_3_5="ERR, Fix Manually"
+fi
+export result2_3_5
+
 bash 2_output.sh
