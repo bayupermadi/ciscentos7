@@ -3,7 +3,7 @@
 # 4.1.1.1 Ensure audit log storage size is configured (Not Scored)
 check4_1_1_1a=`cat /etc/audit/auditd.conf | grep "max_log_file = " | awk '{print $3}'`
 check4_1_1_1b='^[0-9]+$'
-if [ "$check4_1_1_1a" ~= "$check4_1_1_1b"  ]
+if [ "$check4_1_1_1a" =~ "$check4_1_1_1b"  ]
 then
     result4_1_1_1="OK"
 else
