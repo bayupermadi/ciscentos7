@@ -150,7 +150,7 @@ fi
 export result3_4_1
 
 # 3.4.2 Ensure /etc/hosts.allow is configured (Scored)
-check3_4_2=`cat /etc/hosts.allow | grep "ALL:" | "#"`
+check3_4_2=`cat /etc/hosts.allow | grep "ALL:" | grep "#"`
 if [ "$check3_4_2" != "" ] 
 then
     result3_4_2="OK"
@@ -160,7 +160,7 @@ fi
 export result3_4_2
 
 # 3.4.3 Ensure /etc/hosts.deny is configured (Scored)
-check3_4_3=`cat /etc/hosts.deny | grep "ALL: ALL" | "#"`
+check3_4_3=`cat /etc/hosts.deny | grep "ALL: ALL" | grep "#"`
 if [ "$check3_4_3" != "" ] 
 then
     result3_4_3="OK"
@@ -235,7 +235,7 @@ export result3_5_4
 
 # 3.7 Ensure wireless interfaces are disabled (Not Scored)
 check3_7=`iw dev`
-if [ "$check3_7" == "-bash: iw: command not found"  
+if [ "$check3_7" == "-bash: iw: command not found"  ]
 then
     result3_7="OK"
 else
