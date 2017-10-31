@@ -327,7 +327,7 @@ fi
 export result4_2_4
 
 # 4.3 Ensure logrotate is configured (Not Scored)
-check4_3=`sudo find /var/log -type f -printf '%m %p\n' | awk '{print $1}' | grep 7`
+check4_3=`find /var/log -type f -perm g-wx,o-rwx`
 if [ "$check4_2_4" == ""  ]
 then
     result4_2_4="OK"
