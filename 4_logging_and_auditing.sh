@@ -145,14 +145,195 @@ export result4_1_11
 ##fi
 ##export result4_1_11
 
-# 4.1.11 Ensure unsuccessful unauthorized file access attempts are collected (Scored)
-check4_1_11=`grep access /etc/audit/audit.rules | grep 'arch'`
-if [ "$check4_1_11" == "4"  ] 
+# 4.1.13 Ensure successful file system mounts are collected (Scored)
+check4_1_13=`grep mounts /etc/audit/audit.rules | grep 'arch'`
+if [ "$check4_1_13" == "2"  ] 
 then
-    result4_1_11="OK"
+    result4_1_13="OK"
 else
-	result4_1_11="ERR, Fix Manually"
+	result4_1_13="ERR, Fix Manually"
 fi
-export result4_1_11
+export result4_1_13
+
+# 4.1.14 Ensure file deletion events by users are collected (Scored)
+check4_1_14=`grep delete /etc/audit/audit.rules | grep 'arch'`
+if [ "$check4_1_14" == "2"  ] 
+then
+    result4_1_14="OK"
+else
+	result4_1_14="ERR, Fix Manually"
+fi
+export result4_1_14
+
+# 4.1.15 Ensure changes to system administration scope (sudoers) is collected (Scored)
+check4_1_15=`grep scope /etc/audit/audit.rules | grep 'sudoers'`
+if [ "$check4_1_15" == "2"  ] 
+then
+    result4_1_15="OK"
+else
+	result4_1_15="ERR, Fix Manually"
+fi
+export result4_1_15
+
+# 4.1.16 Ensure system administrator actions (sudolog) are collected (Scored)
+check4_1_16=`grep actions /etc/audit/audit.rules `
+if [ "$check4_1_16" != ""  ] 
+then
+    result4_1_16="OK"
+else
+	result4_1_16="ERR, Fix Manually"
+fi
+export result4_1_16
+
+# 4.1.17 Ensure kernel module loading and unloading is collected (Scored)
+check4_1_17=`grep modules /etc/audit/audit.rules | grep -E 'insmod|rmmod|modprobe|arch=b64' | wc -l `
+if [ "$check4_1_17" == "4"  ] 
+then
+    result4_1_17="OK"
+else
+	result4_1_17="ERR, Fix Manually"
+fi
+export result4_1_17
+
+# 4.1.18 Ensure the audit configuration is immutable (Scored)
+check4_1_18=`grep "^\s*[^#]" /etc/audit/audit.rules | tail -1`
+if [ "$check4_1_18" == "-e 2"  ] 
+then
+    result4_1_18="OK"
+else
+	result4_1_18="ERR, Fix Manually"
+fi
+export result4_1_18
+
+# 4.2.1.1 Ensure rsyslog Service is enabled (Scored)
+check4_2_1_1=`systemctl is-enabled rsyslog | grep enabled`
+if [ "$check4_2_1_1" != ""  ] 
+then
+    result4_2_1_1="OK"
+else
+	result4_2_1_1="ERR, Fix Manually"
+fi
+export result4_2_1_1
+
+# 4.2.1.2 Ensure logging is configured (Not Scored)
+#check4_2_1_1=`systemctl is-enabled rsyslog | grep enabled`
+#if [ "$check4_2_1_1" != ""  ] 
+#then
+#    result4_2_1_1="OK"
+#else
+#	result4_2_1_1="ERR, Fix Manually"
+#fi
+#export result4_2_1_1
+
+# 4.2.1.3 Ensure rsyslog default file permissions configured (Scored)
+check4_2_1_3=`grep ^\$FileCreateMode /etc/rsyslog.conf | grep 0640`
+if [ "$check4_2_1_3" != ""  ] 
+then
+    result4_2_1_3="OK"
+else
+	result4_2_1_3="ERR, Fix Manually"
+fi
+export result4_2_1_3
+
+# 4.2.1.4 Ensure rsyslog is configured to send logs to a remote log host (Scored)
+check4_2_1_4=`grep "^*.*[^I][^I]*@" /etc/rsyslog.conf`
+if [ "$check4_2_1_4" != ""  ] 
+then
+    result4_2_1_4="OK"
+else
+	result4_2_1_4="ERR, Fix Manually"
+fi
+export result4_2_1_4
+
+# 4.2.1.5 Ensure remote rsyslog messages are only accepted on designated log hosts. (Not Scored)
+check4_2_1_5=`cat /etc/rsyslog.conf | grep '$ModLoad imtcp.so|$InputTCPServerRun 514'`
+if [ "$check4_2_1_5" != ""  ] 
+then
+    result4_2_1_5="OK"
+else
+	result4_2_1_5="ERR, Fix Manually"
+fi
+export result4_2_1_5
+
+# 4.2.2.1 Ensure syslog-ng service is enabled (Scored)
+check4_2_2_1=`systemctl is-enabled syslog-ng | grep 'enabled'`
+if [ "$check4_2_2_1" != ""  ] 
+then
+    result4_2_2_1="OK"
+else
+	result4_2_2_1="ERR, Fix Manually"
+fi
+export result4_2_2_1
+
+# 4.2.2.2 Ensure logging is configured (Not Scored)
+#check4_2_2_1=`systemctl is-enabled syslog-ng | grep 'enabled'`
+#if [ "$check4_2_2_1" != ""  ] 
+#then
+#    result4_2_2_1="OK"
+#else
+#	result4_2_2_1="ERR, Fix Manually"
+#fi
+#export result4_2_2_1
+
+# 4.2.2.3 Ensure syslog-ng default file permissions configured (Scored)
+check4_2_2_3=`grep ^options /etc/syslog-ng/syslog-ng.conf | grep -E 'perm|0640'`
+if [ "$check4_2_2_3" != ""  ] 
+then
+    result4_2_2_3="OK"
+else
+	result4_2_2_3="ERR, Fix Manually"
+fi
+export result4_2_2_3
+
+# 4.2.2.4 Ensure syslog-ng is configured to send logs to a remote log host (Not Scored)
+check4_2_2_4=`cat /etc/syslog-ng/syslog-ng.conf | grep -E 'port(514)|source(src)'`
+if [ "$check4_2_2_4" != ""  ] 
+then
+    result4_2_2_4="OK"
+else
+	result4_2_2_4="ERR, Fix Manually"
+fi
+export result4_2_2_4
+
+## 4.2.2.5 Ensure remote syslog-ng messages are only accepted on designated log hosts (Not Scored)
+#check4_2_2_5=`cat /etc/syslog-ng/syslog-ng.conf | grep -E 'port(514)|source(src)'`
+#if [ "$check4_2_2_4" != ""  ] 
+#then
+#    result4_2_2_4="OK"
+#else
+#	result4_2_2_4="ERR, Fix Manually"
+#fi
+#export result4_2_2_4
+
+# 4.2.3 Ensure rsyslog or syslog-ng is installed (Scored)
+check4_2_3a=`rpm -q rsyslog | grep package`
+check4_2_3b=`rpm -q syslog-ng | grep package`
+if [ "$check4_2_3a" != ""  ] || [ "$check4_2_3b" != ""  ]
+then
+    result4_2_3="OK"
+else
+	result4_2_3="ERR, Fix Manually"
+fi
+export result4_2_3
+
+# 4.2.4 Ensure permissions on all logfiles are configured (Scored)
+check4_2_4=`sudo find /var/log -type f -printf '%m %p\n' | awk '{print $1}' | grep 7`
+if [ "$check4_2_4" != ""  ]
+then
+    result4_2_4="OK"
+else
+	result4_2_4="ERR, Fix Manually"
+fi
+export result4_2_4
+
+# 4.3 Ensure logrotate is configured (Not Scored)
+check4_3=`sudo find /var/log -type f -printf '%m %p\n' | awk '{print $1}' | grep 7`
+if [ "$check4_2_4" != ""  ]
+then
+    result4_2_4="OK"
+else
+	result4_2_4="ERR, Fix Manually"
+fi
+export result4_2_4
 
 bash 4_output.sh
