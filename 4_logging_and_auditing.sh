@@ -145,6 +145,14 @@ export result4_1_11
 ##fi
 ##export result4_1_11
 
-
+# 4.1.11 Ensure unsuccessful unauthorized file access attempts are collected (Scored)
+check4_1_11=`grep access /etc/audit/audit.rules | grep 'arch'`
+if [ "$check4_1_11" == "4"  ] 
+then
+    result4_1_11="OK"
+else
+	result4_1_11="ERR, Fix Manually"
+fi
+export result4_1_11
 
 bash 4_output.sh

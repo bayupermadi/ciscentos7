@@ -12,3 +12,4 @@ echo "4.1.7 Ensure events that modify the system's Mandatory Access Controls are
 echo "4.1.8 Ensure login and logout events are collected (Scored), $result4_1_8"
 echo "4.1.9 Ensure session initiation information is collected (Scored), $result4_1_9"
 echo "4.1.10 Ensure discretionary access control permission modification events are collected (Scored), $result4_1_10"
+echo "4.1.11 Ensure unsuccessful unauthorized file access attempts are collected (Scored), $result4_1_11"
